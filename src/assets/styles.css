@@ -1,0 +1,30 @@
+/* Global Styles for body and html */
+@font-face {
+  font-family: 'Pokemon';  /* Name of the font */
+  src: url('@/assets/font_style.ttf') format('truetype'); /* Path to the TTF file */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;  /* Disables scrolling */
+  font-family: Georgia, 'Times New Roman', Times, serif;  /* Apply the custom font globally */
+}
+
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.v-application {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;  /* Disable scrolling on Vuetify app */
+  background-color: #555;
+  border: 5px solid transparent;
+  background-image: radial-gradient(circle, #ccc 20%, transparent 20%),
+                    radial-gradient(circle, #333 20%, transparent 20%);
+  background-size: 20px 20px;  /* Set size of the pattern */
+  background-position: 0 0, 10px 10px;
+}
