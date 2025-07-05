@@ -19,9 +19,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
-
 def make_aware(dt):
     if dt.tzinfo is None:
         return dt.replace(tzinfo=timezone.utc)
@@ -36,6 +33,9 @@ class Pokeball(db.Model):
     message = db.Column(db.String(255))
     expiration_time = db.Column(db.DateTime(timezone=True))
     trainer_image = db.Column(db.String(255))
+
+with app.app_context():
+    db.create_all()
 
 # Route to get all pokeballs
 @app.route('/pokeballs', methods=['GET'])
