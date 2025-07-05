@@ -1,30 +1,28 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-from flask_cors import CORS
 from datetime import datetime, timedelta, timezone
-from dotenv import load_dotenv  
-import os                      
+from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
-load_dotenv()  
-
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
-
 CORS(app)
 
-
-# Set up the database URI (use your correct database)
+# Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# Helper to ensure timezone-aware datetime
 def make_aware(dt):
     if dt.tzinfo is None:
         return dt.replace(tzinfo=timezone.utc)
     return dt
 
-# Define the Pokeball model
+# Database model
 class Pokeball(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(50))
@@ -34,21 +32,13 @@ class Pokeball(db.Model):
     expiration_time = db.Column(db.DateTime(timezone=True))
     trainer_image = db.Column(db.String(255))
 
-with app.app_context():
-    db.create_all()
-
-# Route to get all pokeballs
+# Route to get all Pokéballs
 @app.route('/pokeballs', methods=['GET'])
 def get_pokeballs():
     pokeballs = Pokeball.query.all()
     now = datetime.now(timezone.utc)
 
     for pokeball in pokeballs:
-
-        #if pokeball.expiration_time and pokeball.expiration_time.tzinfo is None:
-            #print(f"Before: {pokeball.expiration_time}, tzinfo={pokeball.expiration_time.tzinfo}")
-            #pokeball.expiration_time = pokeball.expiration_time.replace(tzinfo=timezone.utc)
-            #print(f"After: {pokeball.expiration_time}, tzinfo={pokeball.expiration_time.tzinfo}")
         if (
             pokeball.status == 'closed' and 
             pokeball.expiration_time and 
@@ -73,17 +63,15 @@ def get_pokeballs():
         'trainer_image': pokeball.trainer_image
     } for pokeball in pokeballs])
 
-# Route to create a new pokeball entry (this is where the user submits data)
+# Route to create a Pokéball
 @app.route('/pokeballs', methods=['POST'])
 def create_pokeball():
     try:
-        # Get JSON data from the request
         data = request.get_json()
-        
+
         if not data:
             return jsonify({'error': 'No input data provided'}), 400
-        
-        # Create a new Pokeball entry using the provided data
+
         new_pokeball = Pokeball(
             status=data.get('status'),
             pokemon_name=data.get('pokemon_name'),
@@ -92,31 +80,30 @@ def create_pokeball():
             expiration_time=datetime.strptime(data.get('expiration_time'), '%Y-%m-%d %H:%M:%S'),
             trainer_image=data.get('trainer_image')
         )
-        
-        # Add and commit the new pokeball to the database
+
         db.session.add(new_pokeball)
         db.session.commit()
-        
+
         return jsonify({'message': 'Pokeball created successfully'}), 201
-    
+
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({'error': 'An error occurred during the request'}), 500
 
-# Route to update the status of a pokeball (e.g., when it is used)
+# Route to update a Pokéball
 @app.route('/pokeball/<int:id>', methods=['PUT'])
 def update_pokeball(id):
     try:
         data = request.get_json()
-        print(f"Received data for Pokeball {id}: {data}")  # Debugging line
-        
+        print(f"Received data for Pokeball {id}: {data}")
+
         if 'status' not in data or 'pokemon_name' not in data:
             return jsonify({'error': 'Missing required fields'}), 400
-        
+
         pokeball = Pokeball.query.get(id)
         if pokeball:
             pokeball.status = data['status']
-            pokeball.pokemon_name = data['pokemon_name']  # Store the selected Pokémon ID here
+            pokeball.pokemon_name = data['pokemon_name']
             pokeball.trainer_name = data['trainer_name']
             pokeball.message = data['message']
             pokeball.trainer_image = data['trainer_image']
@@ -125,11 +112,28 @@ def update_pokeball(id):
             return jsonify({'message': 'Pokeball updated successfully'})
         else:
             return jsonify({'message': 'Pokeball not found'}), 404
+
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({'error': 'An error occurred during the request'}), 500
 
+# One-time route to seed initial Pokéballs
+@app.route('/seed-pokeballs', methods=['POST'])
+def seed_pokeballs():
+    try:
+        existing = Pokeball.query.count()
+        if existing > 0:
+            return jsonify({'message': f'{existing} Pokéballs already exist. No action taken.'}), 200
 
-# Run the Flask app
+        for _ in range(10):
+            db.session.add(Pokeball(status='open'))
+
+        db.session.commit()
+        return jsonify({'message': '10 Pokéballs seeded successfully!'}), 201
+    except Exception as e:
+        print(f"Seeding error: {e}")
+        return jsonify({'error': 'Failed to seed pokeballs'}), 500
+
+# Run app
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
