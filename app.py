@@ -3,6 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_cors import CORS
 from datetime import datetime, timedelta, timezone
+from dotenv import load_dotenv  
+import os                      
+
+load_dotenv()  
 
 
 app = Flask(__name__)
@@ -11,7 +15,7 @@ CORS(app)
 
 
 # Set up the database URI (use your correct database)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pepper479@localhost/pokemon_center'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
