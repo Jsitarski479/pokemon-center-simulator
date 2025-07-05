@@ -283,7 +283,7 @@ export default {
       }
 
       try {
-        const response = await this.$axios.put(`http://127.0.0.1:5000/pokeball/${this.selectedPokeballId}`, {
+        const response = await this.$axios.put(`https://pokemon-center-backend.onrender.com/pokeball/${this.selectedPokeballId}`, {
           status: "closed", // Set status, can be dynamic
           pokemon_name: this.selectedPokemonId,  // Send the selected Pokémon ID here
           trainer_name: this.trainerName,  // Trainer name input
