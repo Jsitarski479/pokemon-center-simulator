@@ -193,7 +193,7 @@ export default {
 }
 
 .top-section {
-  background-image: url("C:\Users\jsita\Pokemon_Center_Project\my-pokemon-center\my-pokemon-center\src\assets\pokemon_center_background_one.jpg");
+  background-image: url("@/assets/pokemon_center_background_one.jpg");
   background-size: cover;
   background-position: center;
   padding: 10px;
@@ -202,7 +202,7 @@ export default {
 }
 
 .bottom-section {
-  background-image: url("C:\Users\jsita\Pokemon_Center_Project\my-pokemon-center\my-pokemon-center\src\assets\testing image_one.jpg");
+  background-image: url("@/assets/testing image_one.jpg");
   background-size: 60% 72%;
   background-position: 0 0;
   padding: 2vw;
@@ -211,7 +211,7 @@ export default {
 }
 
 .right-section {
-  background-image: url("C:\Users\jsita\Pokemon_Center_Project\my-pokemon-center\my-pokemon-center\src\assets\pokemon_center_machine.jpg");
+  background-image: url("@/assets/pokemon_center_machine.jpg");
   background-size: cover;
   background-position: center;
   padding: 20px;

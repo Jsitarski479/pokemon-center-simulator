@@ -288,7 +288,7 @@ export default {
           pokemon_name: this.selectedPokemonId,  // Send the selected Pokémon ID here
           trainer_name: this.trainerName,  // Trainer name input
           message: this.message,  // Message input
-          expiration_time: "2025-06-24 23:14:00",  // Expiration time (you should update this to match the input or current time)
+          expiration_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' '),
           trainer_image: this.selectedTrainerId  // Trainer image (or whatever image the user selects)
         });
         console.log('Response:', response.data);
@@ -335,7 +335,7 @@ export default {
 .input_section {
   height: 100vh;
   width: 66.67vw;
-  background-image: url("C:/Users/jsita/Pokemon_Center_Project/my-pokemon-center/my-pokemon-center/src/assets/pokemon_x_background_two.jpg");
+  background-image: url("@/assets/pokemon_x_background_two.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -450,7 +450,7 @@ export default {
 }
 
 .right_section {
-  background-image: url("C:/Users/jsita/Pokemon_Center_Project/my-pokemon-center/my-pokemon-center/src/assets/pokemon_x_background.jpg");
+  background-image: url("@/assets/pokemon_x_background.jpg");
   background-size: cover;
   padding: 10px;
   overflow-y: auto;

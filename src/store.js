@@ -36,7 +36,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchPokeballs({ commit }) {
-      axios.get('http://10.0.0.141:5000/pokeballs')
+      axios.get('http://localhost:5000/pokeballs')
         .then(response => {
           commit('setPokeballs', response.data);
         })
