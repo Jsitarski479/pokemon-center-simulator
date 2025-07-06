@@ -11,7 +11,9 @@
                 <h2 class="top_title">Pokémon Center Simulator</h2>
                 <p class="testing">Welcome to the Pokémon Center Simulator! Here, you can select your 
                   favorite pokémon to rest at the center along with a message. You can only rest your pokémon if one of the
-                  six spots are available.
+                  six spots are open. Feel free to select any of the closed pokéballs to see what other people have left.
+                  (P.S. I'm hosting this on a free server, so please click anywhere on the screen to enable audio and give the site 
+                  time)
                 </p>
               </div>
             </v-col>
