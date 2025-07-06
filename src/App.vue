@@ -233,7 +233,7 @@ export default {
 
 .testing {
   font-family: 'Pokemon';
-  font-size: 1.3vw;
+  font-size: 1vw;
 }
 
 .pokeballs {
