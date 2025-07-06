@@ -134,6 +134,13 @@ def seed_pokeballs():
         print(f"Seeding error: {e}")
         return jsonify({'error': 'Failed to seed pokeballs'}), 500
 
+
+@app.route('/delete-all-pokeballs', methods=['DELETE'])
+def delete_all_pokeballs():
+    Pokeball.query.delete()
+    db.session.commit()
+    return jsonify({'message': 'All Pokéballs deleted'}), 200
+
 # Run app
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
