@@ -82,10 +82,14 @@ export default {
 
   mounted() {
     this.$store.dispatch('fetchPokeballs');
-    this.$nextTick(() => {
-      audioManager.stop();
-      audioManager.play();
-    });
+
+    // Defer audio playback until user clicks anywhere
+    document.addEventListener('click', () => {
+      audioManager.stop(); // Ensure clean playback
+      audioManager.play().catch((e) => {
+        console.warn('Autoplay failed:', e);
+      });
+    }, { once: true }); // Only register once
   },
 
   computed: {
@@ -176,6 +180,7 @@ export default {
   }
 };
 </script>
+
 
 
 <style scoped>
