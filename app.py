@@ -125,11 +125,11 @@ def seed_pokeballs():
         if existing > 0:
             return jsonify({'message': f'{existing} Pokéballs already exist. No action taken.'}), 200
 
-        for _ in range(10):
+        for _ in range(6):
             db.session.add(Pokeball(status='open'))
 
         db.session.commit()
-        return jsonify({'message': '10 Pokéballs seeded successfully!'}), 201
+        return jsonify({'message': '6 Pokéballs seeded successfully!'}), 201
     except Exception as e:
         print(f"Seeding error: {e}")
         return jsonify({'error': 'Failed to seed pokeballs'}), 500
