@@ -195,9 +195,10 @@ export default {
 }
 
 .pokemon-gif {
+  margin-top: -10vh;
   width: 14vw;
-  height: 50vh;
-  margin-bottom: 30%;
+  height: 55vh;
+  /*margin-bottom: 30%;*/
 }
 
 .trainer {
