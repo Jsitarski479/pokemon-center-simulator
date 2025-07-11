@@ -201,11 +201,11 @@ export default {
 }
 
 .trainer {
-  width: 6vw;
+  width: 3vw;
   height: auto;
   margin-left: 2vw;
   margin-right: 2vw;
-    margin-bottom: 30%;
+  margin-bottom: 30%;
 
 }
 
@@ -236,7 +236,6 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  border-radius: 8px;
   pointer-events: none;
 }
 
