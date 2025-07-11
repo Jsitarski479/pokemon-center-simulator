@@ -31,20 +31,20 @@
                   :src="getTrainerImage(selectedPokeballData.trainer_image)" 
                 />
                 <div class="info-container">
-                  <div class = "pokemon_name_background">
-                  <p class="pokemon-name" v-if="selectedPokeballData">
-                  {{ getPokemonName(selectedPokeballData.pokemon_name) }}
-                  </p>
+                  <div class="info-top-right">
+                    <div class="text-bg name-bg" v-if="selectedPokeballData">
+                      {{ getPokemonName(selectedPokeballData.pokemon_name) }}
+                    </div>
+                    <div class="text-bg trainer-name-bg" v-if="selectedPokeballData">
+                      {{ selectedPokeballData.trainer_name }}
+                    </div>
+                    <div class="text-bg time-bg" v-if="selectedPokeballData">
+                      {{ timeLeft(selectedPokeballData.expiration_time) }}
+                    </div>
                   </div>
-                  <p class="user-name" v-if="selectedPokeballData">
-                    {{ selectedPokeballData.trainer_name }}
-                  </p>
-                  <p class="time-check" v-if="selectedPokeballData">
-                    {{ timeLeft(selectedPokeballData.expiration_time) }}
-                  </p>
-                  <p class="message" v-if="selectedPokeballData">
+                  <div class="text-bg message-bg" v-if="selectedPokeballData">
                     {{ selectedPokeballData.message }}
-                  </p>
+                  </div>
                 </div>
               </div>
             </v-col>
@@ -56,13 +56,13 @@
             <v-row class="pokeball-row">
               <v-col no-gutters cols="6" v-for="pokeball in pokeballs" :key="pokeball.id" class="my-0">
                 <v-img
-                class="pokeballs"
-                :src="pokeball.status === 'closed' 
-                ? require('@/assets/closed_pokeball.png') 
-                : require('@/assets/open_pokeball.png')"
-                @click="handlePokeballClick(pokeball)"
+                  class="pokeballs"
+                  :src="pokeball.status === 'closed' 
+                    ? require('@/assets/closed_pokeball.png') 
+                    : require('@/assets/open_pokeball.png')"
+                  @click="handlePokeballClick(pokeball)"
                 />
-                </v-col>
+              </v-col>
             </v-row>
           </div>
         </v-col>
@@ -77,31 +77,25 @@ import pokemonNames from '@/pokemonNames';
 
 export default {
   name: 'App',
-
   data() {
     return {
       selectedPokeballData: null
     };
   },
-
   mounted() {
     this.$store.dispatch('fetchPokeballs');
-
-    // Defer audio playback until user clicks anywhere
     document.addEventListener('click', () => {
-      audioManager.stop(); // Ensure clean playback
+      audioManager.stop();
       audioManager.play().catch((e) => {
         console.warn('Autoplay failed:', e);
       });
-    }, { once: true }); // Only register once
+    }, { once: true });
   },
-
   computed: {
     pokeballs() {
       return this.$store.getters.allPokeballs.slice().sort((a, b) => a.id - b.id);
     }
   },
-
   watch: {
     pokeballs(newVal) {
       const submittedTrainer = localStorage.getItem('submittedTrainer');
@@ -113,47 +107,24 @@ export default {
       }
     }
   },
-
   methods: {
     timeLeft(expirationTime) {
       if (!expirationTime) return '';
-
       const expiration = new Date(expirationTime);
       const now = new Date();
-
-      const nowUTC = Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate(),
-        now.getUTCHours(),
-        now.getUTCMinutes(),
-        now.getUTCSeconds()
-      );
-
-      const expirationUTC = Date.UTC(
-        expiration.getUTCFullYear(),
-        expiration.getUTCMonth(),
-        expiration.getUTCDate(),
-        expiration.getUTCHours(),
-        expiration.getUTCMinutes(),
-        expiration.getUTCSeconds()
-      );
-
+      const nowUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+      const expirationUTC = Date.UTC(expiration.getUTCFullYear(), expiration.getUTCMonth(), expiration.getUTCDate(), expiration.getUTCHours(), expiration.getUTCMinutes(), expiration.getUTCSeconds());
       const diff = expirationUTC - nowUTC;
       if (diff <= 0) return 'Expired';
-
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       return `${hours}h ${minutes}m remaining`;
     },
-
     getPokemonName(id) {
       return pokemonNames[Number(id)] || 'Unknown';
     },
-
     handlePokeballClick(pokeball) {
       const submittedTrainer = localStorage.getItem('submittedTrainer');
-
       if (pokeball.status === 'closed') {
         this.selectedPokeballData = pokeball;
       } else {
@@ -165,17 +136,14 @@ export default {
         this.$router.push({ name: 'pokemon-form', query: { pokeball: pokeball.id } });
       }
     },
-
     getPokemonImage(id) {
       if (!id) return null;
       return require(`@/assets/pokemon_gifs/${id}.gif`);
     },
-
     getTrainerImage(id) {
       if (!id) return null;
       return require(`@/assets/trainers/${id}.png`);
     },
-
     formatDate(datetime) {
       if (!datetime) return '';
       const date = new Date(datetime);
@@ -184,8 +152,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style scoped>
 .v-application {
@@ -196,7 +162,7 @@ export default {
   background-color: #555;
   border: 10px solid transparent;
   background-image: radial-gradient(circle, #ccc 20%, transparent 20%),
-                    radial-gradient(circle, #333 20%, transparent 20%);
+    radial-gradient(circle, #333 20%, transparent 20%);
   background-size: 2vw 2vh;
   background-position: 0 0, 10px 10px;
 }
@@ -212,19 +178,92 @@ export default {
 
 .bottom-section {
   background-image: url("@/assets/testing_bottom_left_background.jpg");
-  background-size: 60% 72%;
-  background-position: 0 0;
-  padding: 2vw;
+  background-size: cover;
+  background-position: center;
+  position: relative;
   height: 84vh;
-  width: 113vw;
+  padding: 2vh 2vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.pokemon_name_background {
-  position: relative;
-  background-color: red;
-  padding: 0.6vh 1.2vw;
-  min-width: 12vw;
+.pokemon-gif {
+  width: 16vw;
+  height: auto;
+}
+
+.trainer {
+  width: 6vw;
+  height: auto;
+  margin-left: 2vw;
+}
+
+.info-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-top-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1vh;
+  margin: 1vh 2vw 0 0;
+}
+
+.text-bg {
+  font-family: 'Pokemon';
+  font-size: 1vw;
+  color: white;
+  padding: 0.6vh 1vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 8px;
+  pointer-events: none;
+}
+
+.name-bg {
+  background-image: url("@/assets/testing_pokemon_name_background.jpg"); /* add background image for name */
+}
+
+.trainer-name-bg {
+  background-image: url("@/assets/testing_trainer_name_background.jpg"); /* add background image for trainer name */
+}
+
+.time-bg {
+  background-image: url("@/assets/testing_time_background.jpg"); /* add background image for time */
+}
+
+.message-bg {
+  background-image: url("@/assets/testing_message_background.jpg"); /* add background image for message */
+  margin: 0 auto 2vh auto;
+  text-align: center;
+  max-width: 90%;
+  font-size: 1.2vw;
+}
+.pokeballs {
+  margin: 0;
+  max-width: 6vw;
+  max-height: 13vh;
+  object-fit: contain;
+}
+
+.pokeball-row {
+  margin-left: 3.7vw;
+  margin-top: 25vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .right-section {
@@ -246,89 +285,8 @@ export default {
   font-size: 1vw;
 }
 
-.pokeballs {
-  margin: 0;
-  max-width: 6vw;
-  max-height: 13vh;
-  object-fit: contain;
-}
-
-.pokeball-row {
-  margin-left: 3.7vw;
-  margin-top: 25vh;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-
-.info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2vh;
-  margin-top: 2vh;
-  margin-left: 2vw;
-  max-width: 50vw;
-  position: relative;
-  z-index: 10;
-}
-
-.pokemon-name {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Pokemon';
-  font-size: 1.8vw;
-  color: white;
-  pointer-events: none;
-}
-
-.user-name,
-.time-check,
-.message {
-  font-family: 'Pokemon';
-  font-size: 1vw;
-  color: white;
-}
-
-.user-name {
-  font-family: "Pokemon";
-  font-size: 0.85vw;
-}
-
-.time-check {
-  font-family: "Pokemon";
-  font-size: 0.85vw;
-}
-
-.message {
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  max-width: 58vw;
-  font-family: "Pokemon";
-  font-size: 1.2vw;
-}
-
-.pokemon-gif {
-  width:16.5vw;
-  height:16.6vw;
-}
-
-.trainer {
-  margin-top: -17vh;
-  margin-left: 32vw;
-  width:6.2vw;
-  height: 8.6vw;
-}
-
 .custom-router-view {
   margin-left: -1.7vw;
   margin-top: -3.8vh;
 }
-
-
-
-
 </style>
