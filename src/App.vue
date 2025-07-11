@@ -220,7 +220,7 @@ export default {
 }
 
 .pokemon_name_background {
-  background-image: url("@/assets/testing_pokemon_name_background.jpg");;
+  background-color: red;
 }
 
 .right-section {
