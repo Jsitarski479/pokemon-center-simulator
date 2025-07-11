@@ -195,7 +195,7 @@ export default {
 }
 
 .pokemon-gif {
-  margin-top: -10vh;
+  margin-top: -5vh;
   width: 14vw;
   height: 55vh;
   /*margin-bottom: 30%;*/
