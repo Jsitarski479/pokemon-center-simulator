@@ -206,11 +206,12 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  /*pointer-events: none;*/
   z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 2vh; /* ✅ ensures bottom content like message has space */
+  box-sizing: border-box;
 }
 
 .info-top-right {
@@ -246,13 +247,15 @@ export default {
 }
 
 .message-bg {
-  background-image: url("@/assets/testing_message_background.jpg"); /* add background image for message */
-  margin: 0 auto 2vh auto;
+  background-image: url("@/assets/testing_message_background.jpg");
   text-align: center;
   max-width: 90%;
   font-size: 1.2vw;
-  margin: 0 auto 2vh auto;
+  padding: 1vh 2vw;
+  align-self: center;
+  margin-bottom: 3vh;
 }
+
 .pokeballs {
   margin: 0;
   max-width: 6vw;
