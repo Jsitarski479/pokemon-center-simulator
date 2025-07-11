@@ -222,6 +222,9 @@ export default {
 .pokemon_name_background {
   position: relative;
   background-color: red;
+  height: 3vh;
+  width: fit-content;
+  padding: 0.5vh 1vw;
 }
 
 .right-section {
@@ -259,6 +262,7 @@ export default {
 }
 
 .info-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
