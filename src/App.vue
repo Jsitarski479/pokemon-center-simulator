@@ -206,7 +206,8 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  /*pointer-events: none;*/
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -250,6 +251,7 @@ export default {
   text-align: center;
   max-width: 90%;
   font-size: 1.2vw;
+  margin: 0 auto 2vh auto;
 }
 .pokeballs {
   margin: 0;
