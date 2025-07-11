@@ -20,30 +20,32 @@
 
             <v-col cols="12">
               <div class="bottom-section">
-                <v-img 
-                  v-if="selectedPokeballData" 
-                  class="pokemon-gif" 
-                  :src="getPokemonImage(selectedPokeballData.pokemon_name)" 
-                />
-                <v-img 
-                  v-if="selectedPokeballData" 
-                  class="trainer" 
-                  :src="getTrainerImage(selectedPokeballData.trainer_image)" 
-                />
-                <div class="info-container">
-                  <div class="info-top-right">
-                    <div class="text-bg name-bg" v-if="selectedPokeballData">
-                      {{ getPokemonName(selectedPokeballData.pokemon_name) }}
+                <div class="bottom-left-content">
+                  <v-img 
+                    v-if="selectedPokeballData" 
+                    class="pokemon-gif" 
+                    :src="getPokemonImage(selectedPokeballData.pokemon_name)" 
+                  />
+                  <v-img 
+                    v-if="selectedPokeballData" 
+                    class="trainer" 
+                    :src="getTrainerImage(selectedPokeballData.trainer_image)" 
+                  />
+                  <div class="info-container">
+                    <div class="info-top-right">
+                      <div class="text-bg name-bg" v-if="selectedPokeballData">
+                        {{ getPokemonName(selectedPokeballData.pokemon_name) }}
+                      </div>
+                      <div class="text-bg trainer-name-bg" v-if="selectedPokeballData">
+                        {{ selectedPokeballData.trainer_name }}
+                      </div>
+                      <div class="text-bg time-bg" v-if="selectedPokeballData">
+                        {{ timeLeft(selectedPokeballData.expiration_time) }}
+                      </div>
                     </div>
-                    <div class="text-bg trainer-name-bg" v-if="selectedPokeballData">
-                      {{ selectedPokeballData.trainer_name }}
+                    <div class="text-bg message-bg" v-if="selectedPokeballData">
+                      {{ selectedPokeballData.message }}
                     </div>
-                    <div class="text-bg time-bg" v-if="selectedPokeballData">
-                      {{ timeLeft(selectedPokeballData.expiration_time) }}
-                    </div>
-                  </div>
-                  <div class="text-bg message-bg" v-if="selectedPokeballData">
-                    {{ selectedPokeballData.message }}
                   </div>
                 </div>
               </div>
@@ -183,10 +185,14 @@ export default {
   position: relative;
   height: 84vh;
   padding: 2vh 2vw;
+}
+
+.bottom-left-content {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  height: 100%;
 }
 
 .pokemon-gif {
@@ -198,19 +204,17 @@ export default {
   width: 6vw;
   height: auto;
   margin-left: 2vw;
+  margin-right: 2vw;
 }
 
 .info-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 2vh; /* ✅ ensures bottom content like message has space */
+  height: 100%;
+  z-index: 10;
+  padding-bottom: 2vh;
   box-sizing: border-box;
 }
 
@@ -235,15 +239,15 @@ export default {
 }
 
 .name-bg {
-  background-image: url("@/assets/testing_pokemon_name_background.jpg"); /* add background image for name */
+  background-image: url("@/assets/testing_pokemon_name_background.jpg");
 }
 
 .trainer-name-bg {
-  background-image: url("@/assets/testing_trainer_name_background.jpg"); /* add background image for trainer name */
+  background-image: url("@/assets/testing_trainer_name_background.jpg");
 }
 
 .time-bg {
-  background-image: url("@/assets/testing_time_background.jpg"); /* add background image for time */
+  background-image: url("@/assets/testing_time_background.jpg");
 }
 
 .message-bg {
