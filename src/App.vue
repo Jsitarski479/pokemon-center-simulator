@@ -220,8 +220,7 @@ export default {
 }
 
 .pokemon_name_background {
-  width: 2vw;
-  height: 3vh;
+  position: relative;
   background-color: red;
 }
 
@@ -267,6 +266,7 @@ export default {
 }
 
 .pokemon-name {
+  position: absolute;
   margin-left: 31.5vw;
   margin-bottom: -11vh;
   margin-top: -11.4%;
