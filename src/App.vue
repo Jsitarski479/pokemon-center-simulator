@@ -41,10 +41,9 @@
                       </div>
                       <div class="text-bg time-bg" v-if="selectedPokeballData">
                         {{ timeLeft(selectedPokeballData.expiration_time) }}
-                      </div>
-                    </div>
-                    <div class="text-bg message-bg" v-if="selectedPokeballData">
+                      </div>                    <div class="text-bg message-bg" v-if="selectedPokeballData">
                       {{ selectedPokeballData.message }}
+                      </div>
                     </div>
                   </div>
                 </div>
