@@ -31,9 +31,11 @@
                   :src="getTrainerImage(selectedPokeballData.trainer_image)" 
                 />
                 <div class="info-container">
+                  <div class = "pokemon_name_background">
                   <p class="pokemon-name" v-if="selectedPokeballData">
                   {{ getPokemonName(selectedPokeballData.pokemon_name) }}
                   </p>
+                  </div>
                   <p class="user-name" v-if="selectedPokeballData">
                     {{ selectedPokeballData.trainer_name }}
                   </p>
@@ -209,12 +211,16 @@ export default {
 }
 
 .bottom-section {
-  background-image: url("@/assets/testing image_one.jpg");
+  background-image: url("@/assets/testing_bottom_left_background.jpg");
   background-size: 60% 72%;
   background-position: 0 0;
   padding: 2vw;
   height: 84vh;
   width: 113vw;
+}
+
+.pokemon_name_background {
+  background-image: url("@/assets/testing_pokemon_name_background.jpg");;
 }
 
 .right-section {
