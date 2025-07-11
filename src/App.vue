@@ -220,6 +220,8 @@ export default {
 }
 
 .pokemon_name_background {
+  width: 2vw;
+  height: 3vh;
   background-color: red;
 }
 
