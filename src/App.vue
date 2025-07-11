@@ -223,7 +223,7 @@ export default {
 .text-bg {
   font-family: 'Pokemon';
   font-size: 1vw;
-  color: white;
+  color: black;
   padding: 0.6vh 1vw;
   background-repeat: no-repeat;
   background-size: cover;
