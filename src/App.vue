@@ -210,7 +210,7 @@ export default {
 }
 
 .info-container {
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
