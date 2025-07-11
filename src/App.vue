@@ -222,9 +222,9 @@ export default {
 .pokemon_name_background {
   position: relative;
   background-color: red;
-  height: 3vh;
-  width: fit-content;
-  padding: 0.5vh 1vw;
+  padding: 0.6vh 1.2vw;
+  min-width: 12vw;
+  border-radius: 8px;
 }
 
 .right-section {
@@ -262,34 +262,42 @@ export default {
 }
 
 .info-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.2vh;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  max-width: 50vw;
+  position: relative;
+  z-index: 10;
 }
 
 .pokemon-name {
   position: absolute;
-  margin-left: 31.5vw;
-  margin-bottom: -11vh;
-  margin-top: -11.4%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-family: 'Pokemon';
-  font-size: 2vh;
+  font-size: 1.8vw;
+  color: white;
+  pointer-events: none;
+}
+
+.user-name,
+.time-check,
+.message {
+  font-family: 'Pokemon';
+  font-size: 1vw;
+  color: white;
 }
 
 .user-name {
-  margin-top: 23ex;
-  margin-bottom: 7vh;
-  margin-left: 40vw;
   font-family: "Pokemon";
   font-size: 0.85vw;
 }
 
 .time-check {
-  margin-top: -2.4%;
-  margin-bottom: 30.2vh;
-  margin-left: 40vw;
   font-family: "Pokemon";
   font-size: 0.85vw;
 }
@@ -299,8 +307,6 @@ export default {
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 58vw;
-  margin-top: -24.9vh;
-  margin-left: 3.3vw;
   font-family: "Pokemon";
   font-size: 1.2vw;
 }
@@ -323,18 +329,6 @@ export default {
 }
 
 
-@media screen and (min-width: 1600px) {
-  .pokemon-name {
-    margin-top: -12vw;
-    margin-bottom: -4vh !important;
-  }
-  
-  .user-name {
-    margin-top: 20ex !important;
-  }
-
-
-}
 
 
 </style>
