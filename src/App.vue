@@ -197,6 +197,7 @@ export default {
 .pokemon-gif {
   width: 16vw;
   height: auto;
+  margin-bottom: 30%;
 }
 
 .trainer {
@@ -204,6 +205,8 @@ export default {
   height: auto;
   margin-left: 2vw;
   margin-right: 2vw;
+    margin-bottom: 30%;
+
 }
 
 .info-container {
