@@ -201,7 +201,7 @@ export default {
 }
 
 .trainer {
-  width: 3vw;
+  width: 1vw;
   height: auto;
   margin-left: 2vw;
   margin-right: 2vw;
